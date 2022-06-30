@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Routes, Route,Navigate } from 'react-router-dom';
 import Home from './Pages/Home';
@@ -7,13 +6,14 @@ import Navbar from './Component/Navbar';
 import { Container } from 'react-bootstrap';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
+import Footer from './Component/Footer';
 
 function App() {
   const [data, setData] = useState(null)
   const [subData, setSubData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [location, setLocation] = useState('')
-  const baseApiKeys = "242fe036b992b20b56ad3de15dc65a10";
+  const baseApiKeys = "10d710ffeb276ae3283cf00d7e63b169";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${baseApiKeys}`
 
   const searchLocation = async(event) => {
@@ -55,7 +55,9 @@ function App() {
       <Route path='/home' element={<Home/>}/>
       <Route path='/search' element={<Search data={data} subData={subData}/>}/>
      </Routes>
+    
      </Container>
+     <Footer/>
     </div>
   );
 }

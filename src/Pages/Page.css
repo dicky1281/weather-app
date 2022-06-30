@@ -6,12 +6,24 @@
   align-items: center;
   height: 100%;
 }
+.search {
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
 .current-status {
   text-align: center;
   background-color: white;
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 40px;
+}
+.daily{
+  width: -webkit-fill-available;
 }
 .daily-header{
     display: flex;
@@ -34,10 +46,13 @@
     margin: 10px 10px 50px 10px;
     text-align: center;
     padding-bottom: 10px;
+    width: 239px!important;
   
   
-  width: 203px !important;
+  
 }
+
+
 .card h3 {
   color: black;
   font-size: 18px;
@@ -56,8 +71,18 @@
     padding-bottom: 0px;
   border-bottom: 2px solid white;
 }
+.card p{
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
 
 
+
+@media(max-width:1400px){
+  .card{
+    width: 203px !important;
+  }
+}
 @media(max-width:650px){
   .card{
     margin: 10px auto;

@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import moment from "moment";
 import axios from "axios";
-import "./Home.css";
+import "./Page.css";
 const Home = () => {
-
   const [lgShow, setLgShow] = useState(false);
   // My Keys
-  const baseApiKeys = "242fe036b992b20b56ad3de15dc65a10";
+  const baseApiKeys = "10d710ffeb276ae3283cf00d7e63b169";
 
   // To Get Coordinate Location
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
 
   // To Get requirement data
-  const [icon, setIcon] = useState("");
-  const [weather, setWeather] = useState("");
-  const [temperature, setTemperature] = useState(0);
-  const [cityName, setCityName] = useState("");
+  const [current, setCurrent] = useState(null);
   const [hourly, setHourly] = useState(null);
   const [day, setDay] = useState(null);
 
@@ -33,11 +30,9 @@ const Home = () => {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${baseApiKeys}&units=metric`
       );
-      setTemperature(res.data.main);
-      setCityName(res.data.name);
-      setWeather(res.data.weather[0].main);
-      setIcon(res.data.weather[0].icon);
-      console.log(res.data);
+      setCurrent(res.data);
+
+      console.log(current);
     } catch (err) {
       console.error(err);
     }
@@ -50,7 +45,6 @@ const Home = () => {
       );
       setHourly(res.data.hourly);
       setDay(res.data.daily);
-      console.log(day);
     } catch (error) {}
   };
 
@@ -58,53 +52,48 @@ const Home = () => {
     getLocation();
     getHour();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lat, lon, cityName]);
-
-  let d = new Date();
-  let date = d.getDate();
-  let year = d.getFullYear();
-  let month = d.toLocaleString("default", { month: "long" });
-  let days = d.toLocaleString("default", { weekday: "long" });
+  }, [lat, lon, current?.name]);
 
   return (
     <>
       <div className="home">
-
         <h2 style={{ color: "white", marginBottom: "20px" }}>Your Location</h2>
         <div className="current-status">
-          <h2>{cityName}</h2>
+          <h2>{current?.name}</h2>
           <h4>
-            {days}, {month} {date}, {year}
+            {moment().format("dddd")}, {moment().format("MMM Do")}
           </h4>
+          <h4>{moment().format("LT")}</h4>
 
           <img
-            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${current?.weather[0].icon}@2x.png`}
             alt=""
           />
-          <h4>{weather}</h4>
+          <h4>{current?.weather[0].main}</h4>
           <div className="temperature pt-3">
             <h4>
               <i className="fas fa-thermometer-quarter"></i>{" "}
-              {temperature.temp_min}ºC / {temperature.temp_max}ºC
+              {current?.main?.temp_min}ºC / {current?.main?.temp_max}ºC
+              <br /> <i className="fas fa-wind"></i> {current?.wind?.speed} MPH
             </h4>
           </div>
         </div>
         <div className="daily">
           <div className="daily-header">
-            <h3>Todays Forecast For 25 Hours Forwards</h3>
+            <h3>Todays Forecast For 24 Hours Forwards</h3>
             <h3 className="btn btn-warning" onClick={() => setLgShow(true)}>
               See More!
             </h3>
           </div>
           <div className="wrapper">
             <div className="row">
-             
               {hourly?.slice(0, 5).map((item, index) => {
-                const hour = new Date(item.dt * 1000).getHours();
                 return (
                   <>
                     <div className="card col-md-6 col-xs-12">
-                      <div className="5">Time {hour}:00</div>
+                      <div className="5">
+                        Time {moment.unix(item.dt).format("LT")}
+                      </div>
                       <img
                         src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                         alt=""
@@ -112,7 +101,8 @@ const Home = () => {
                       <h3>{item.weather[0].description}</h3>
                       <h4>
                         <i className="fas fa-thermometer-quarter"></i>{" "}
-                        {item.temp}ºC
+                        {item.temp}ºC <br /> <i className="fas fa-wind"></i>{" "}
+                        {item.wind_speed} MPH
                       </h4>
                     </div>
                   </>
@@ -128,24 +118,29 @@ const Home = () => {
           >
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
-                25 Hours Forecast
+                24 Hours Forecast
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               {" "}
               <div className="row">
                 {hourly?.slice(0, 25).map((item, index) => {
-                  const hour = new Date(item.dt * 1000).getHours();
                   return (
                     <>
                       <div className="card col-md-6 col-xs-12">
-                        <div className="5">Time {hour}:00</div>
+                        <div className="5">
+                          Time {moment.unix(item.dt).format("LT")}
+                        </div>
                         <img
                           src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                           alt=""
                         />
                         <h3>{item.weather[0].description}</h3>
-                        <h4>{item.temp}ºC</h4>
+                        <h4>
+                          <i className="fas fa-thermometer-quarter"></i>{" "}
+                          {item.temp}ºC <br /> <i className="fas fa-wind"></i>{" "}
+                          {item.wind_speed} MPH
+                        </h4>
                       </div>
                     </>
                   );
@@ -155,27 +150,24 @@ const Home = () => {
           </Modal>
         </div>
         <div className="day">
-          <div className="day-header">
+          <div className="daily-header">
             <h3>Forecast For 8 Days Forward</h3>
           </div>
           <div className="wrapper">
             <div className="row">
-     
-              {day?.slice(0, 7).map((item, index) => {
-                let date = new Date(item.dt * 1000)
-                let day = date.toLocaleString("default",{weekday:"long"})
-                console.log(day)
-
-
+              {day?.slice(0, 8).map((item, index) => {
                 return (
                   <>
-                  
                     <div className="card col-md-6 col-xs-12">
-                      <div className="5">{day}</div>
+                      <div className="5">
+                        {moment.unix(item.dt).format("dddd")}
+                      </div>
+
                       <img
                         src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                         alt=""
                       />
+                      <p>Overall</p>
                       <h3>{item.weather[0].description}</h3>
                       <h3>
                         <i className="fas fa-thermometer-quarter"></i>{" "}
@@ -190,10 +182,40 @@ const Home = () => {
                           <Popover id={`popover-positioned-top`}>
                             <Popover.Body>
                               <div className="feels-like">
-                                <h5>Feels Like:</h5>
-                                <h6><i className="fas fa-cloud" style={{ color:"whiteSmokek" }}></i>Morn : {item.feels_like.morn}ºC</h6>
-                                <h6><i className="fas fa-sun" style={{ color:"yellow" }}></i> Day : {item.feels_like.day}ºC</h6>
-                                <h6><i className="fas fa-moon"> </i> Night : {item.feels_like.eve}ºC</h6>
+                                <h6>Feels Like Temp:</h6>
+                                <h6>
+                                  <i
+                                    className="fas fa-cloud"
+                                    style={{ color: "whiteSmokek" }}
+                                  ></i>
+                                  Morn : {item.feels_like.morn}ºC
+                                </h6>
+                                <h6>
+                                  <i
+                                    className="fas fa-sun"
+                                    style={{ color: "yellow" }}
+                                  ></i>{" "}
+                                  Day : {item.feels_like.day}ºC
+                                </h6>
+                                <h6>
+                                  <i className="fas fa-moon"> </i> Night :{" "}
+                                  {item.feels_like.eve}ºC
+                                </h6>
+                                <h6>
+                                  <i className="fas fa-wind"></i> Wind :{" "}
+                                  {item.wind_speed} MPH
+                                </h6>
+                              </div>
+                              <hr />
+                              <div className="moments">
+                                <h6>
+                                  Sunrise :{" "}
+                                  {moment.unix(item.sunrise).format("LT")}
+                                </h6>
+                                <h6>
+                                  Sunset :{" "}
+                                  {moment.unix(item.sunset).format("LT")}
+                                </h6>
                               </div>
                             </Popover.Body>
                           </Popover>
@@ -205,7 +227,6 @@ const Home = () => {
                   </>
                 );
               })}
-            
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@
 
 }
 input{
-  padding: 2px;
+  padding: 4px;
   width: 300px;
   border-radius: 5px;
   border: 1px solid;
@@ -20,4 +20,14 @@ nav{
 }
 .inputs{
   margin-left: 10px;
+}
+footer{
+  text-align: center;
+
+  background-color: black;
+  padding: 20px;
+}
+footer h1{
+  color: white;
+  font-size: 20px;
 }
