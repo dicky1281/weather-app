@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/weather-app-radyaTest/static/css/main.0c85a3ce.css",
-    "main.js": "/weather-app-radyaTest/static/js/main.dd29b293.js",
-    "index.html": "/weather-app-radyaTest/index.html",
-    "main.0c85a3ce.css.map": "/weather-app-radyaTest/static/css/main.0c85a3ce.css.map",
-    "main.dd29b293.js.map": "/weather-app-radyaTest/static/js/main.dd29b293.js.map"
+    "main.css": "/weather-app-radyaTest/home/static/css/main.0c85a3ce.css",
+    "main.js": "/weather-app-radyaTest/home/static/js/main.dd29b293.js",
+    "index.html": "/weather-app-radyaTest/home/index.html",
+    "main.0c85a3ce.css.map": "/weather-app-radyaTest/home/static/css/main.0c85a3ce.css.map",
+    "main.dd29b293.js.map": "/weather-app-radyaTest/home/static/js/main.dd29b293.js.map"
   },
   "entrypoints": [
     "static/css/main.0c85a3ce.css",
