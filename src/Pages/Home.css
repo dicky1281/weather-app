@@ -1,0 +1,65 @@
+.home {
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.current-status {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+.daily-header{
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    padding-bottom: 0px;
+  border-bottom: 2px solid white;
+}
+
+.temperature h4 {
+  margin-right: 20px;
+}
+.wrapper{
+    padding-top: 10px;
+}
+.wrapper .row{
+    margin: auto!important;
+}
+.card {
+    margin: 10px 10px 50px 10px;
+    text-align: center;
+    padding-bottom: 10px;
+  
+  
+  width: 203px !important;
+}
+.card h3 {
+  color: black;
+  font-size: 18px;
+}
+.modal-body{
+    background-color: whitesmoke;
+}
+.modal-body .card{
+    margin-left: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1);
+}
+.day-header{
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    padding-bottom: 0px;
+  border-bottom: 2px solid white;
+}
+
+
+@media(max-width:650px){
+  .card{
+    margin: 10px auto;
+  }
+}
