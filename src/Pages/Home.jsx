@@ -31,8 +31,6 @@ const Home = () => {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${baseApiKeys}&units=metric`
       );
       setCurrent(res.data);
-
-      console.log(current);
     } catch (err) {
       console.error(err);
     }
