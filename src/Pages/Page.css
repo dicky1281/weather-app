@@ -12,7 +12,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 .current-status {
@@ -22,69 +21,77 @@
   border-radius: 12px;
   margin-bottom: 40px;
 }
-.daily{
+.daily {
   width: -webkit-fill-available;
 }
-.daily-header{
-    display: flex;
-    color: white;
-    justify-content: space-between;
-    padding-bottom: 0px;
+.daily-header {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  padding-bottom: 0px;
   border-bottom: 2px solid white;
 }
 
 .temperature h4 {
   margin-right: 20px;
 }
-.wrapper{
-    padding-top: 10px;
+.wrapper {
+  padding-top: 10px;
 }
-.wrapper .row{
-    margin: auto!important;
+.wrapper .row {
+  margin: auto !important;
 }
 .card {
-    margin: 10px 10px 50px 10px;
-    text-align: center;
-    padding-bottom: 10px;
-    width: 239px!important;
-  
-  
-  
+  margin: 10px 10px 50px 10px;
+  text-align: center;
+  padding-bottom: 10px;
+  width: 239px !important;
 }
-
 
 .card h3 {
   color: black;
   font-size: 18px;
 }
-.modal-body{
-    background-color: whitesmoke;
+.modal-body {
+  background-color: whitesmoke;
 }
-.modal-body .card{
-    margin-left: 12px;
-    box-shadow: rgba(0, 0, 0, 0.1);
+.modal-body .card {
+  margin-left: 12px;
+  box-shadow: rgba(0, 0, 0, 0.1);
 }
-.day-header{
-    display: flex;
-    color: white;
-    justify-content: space-between;
-    padding-bottom: 0px;
+.day-header {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  padding-bottom: 0px;
   border-bottom: 2px solid white;
 }
-.card p{
+.card p {
   margin-bottom: 10px;
   opacity: 0.5;
 }
 
+.modal-body .card {
+  margin: 10px auto 50px auto;
+}
 
-
-@media(max-width:1400px){
-  .card{
+@media (max-width: 1400px) {
+  .card {
     width: 203px !important;
   }
 }
-@media(max-width:650px){
-  .card{
+@media (max-width: 1200px) {
+  .card {
+    margin: 10px auto 50px;
+  }
+}
+@media (max-width: 650px) {
+  .card {
+    margin: 10px auto;
+  }
+}
+@media (max-width: 450px) {
+  .modal-body .card {
     margin: 10px auto;
   }
 }
